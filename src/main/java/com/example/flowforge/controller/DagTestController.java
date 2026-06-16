@@ -47,7 +47,7 @@ public class DagTestController {
 
         graph.addEdge(1L, 2L);
         graph.addEdge(2L, 3L);
-        
+
 
         if (dagValidator.hasCycle(graph)) {
             return "❌ Invalid workflow: cycle detected!";
