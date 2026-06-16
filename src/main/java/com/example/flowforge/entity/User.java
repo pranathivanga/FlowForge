@@ -3,6 +3,9 @@ package com.example.flowforge.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +25,8 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Workflow> workflows = new ArrayList<>();
 }
