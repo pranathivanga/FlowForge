@@ -1,4 +1,5 @@
 package com.example.flowforge.entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,8 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "workflows")
-public class Workflow extends BaseEntity {
+@Table(name = "workflow_nodes")
+public class WorkflowNode extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,21 +21,22 @@ public class Workflow extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String type;
+
     @Column(length = 1000)
-    private String description;
-
-    @Column(nullable = false)
-    private boolean enabled = true;
-
-    @Column(nullable = false)
-    private Integer version = 1;
+    private String configuration;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "workflow_id", nullable = false)
     @JsonIgnore
-    private User user;
+    private Workflow workflow;
 
-    @OneToMany(mappedBy = "workflow")
+    @OneToMany(mappedBy = "sourceNode")
     @JsonIgnore
-    private List<WorkflowNode> nodes = new ArrayList<>();
+    private List<WorkflowEdge> outgoingEdges = new ArrayList<>();
+
+    @OneToMany(mappedBy = "targetNode")
+    @JsonIgnore
+    private List<WorkflowEdge> incomingEdges = new ArrayList<>();
 }
