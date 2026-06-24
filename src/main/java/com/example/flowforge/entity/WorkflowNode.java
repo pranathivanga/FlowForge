@@ -39,4 +39,9 @@ public class WorkflowNode extends BaseEntity {
     @OneToMany(mappedBy = "targetNode")
     @JsonIgnore
     private List<WorkflowEdge> incomingEdges = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @Column(nullable = false)
+    private String connectorType;
 }

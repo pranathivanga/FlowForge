@@ -5,6 +5,7 @@ import com.example.flowforge.entity.Workflow;
 import com.example.flowforge.entity.WorkflowExecution;
 import com.example.flowforge.repository.WorkflowRepository;
 import com.example.flowforge.repository.WorkflowExecutionRepository;
+import com.example.flowforge.service.ConnectorExecutionService;
 import com.example.flowforge.service.ExecutionService;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,16 @@ public class ExecutionServiceImpl implements ExecutionService {
     private final ExecutorService executorService;
     private final WorkflowRepository workflowRepository;
     private final WorkflowExecutionRepository workflowExecutionRepository;
-
+    private final ConnectorExecutionService
+            connectorExecutionService;
     public ExecutionServiceImpl(
             WorkflowRepository workflowRepository,
-            WorkflowExecutionRepository workflowExecutionRepository,ExecutorService executorService) {
+            WorkflowExecutionRepository workflowExecutionRepository,ExecutorService executorService,ConnectorExecutionService connectorExecutionService) {
 
         this.workflowRepository = workflowRepository;
         this.workflowExecutionRepository = workflowExecutionRepository;
         this.executorService = executorService;
+        this.connectorExecutionService = connectorExecutionService;
     }
 
     @Override
@@ -48,7 +51,12 @@ public class ExecutionServiceImpl implements ExecutionService {
                         .save(savedExecution);
 
                 System.out.println("▶️ Node 1 started");
+
+                connectorExecutionService
+                        .execute("DEVGUARD");
+
                 Thread.sleep(2000);
+
                 System.out.println("✅ Node 1 finished");
 
                 System.out.println("▶️ Node 2 started");
