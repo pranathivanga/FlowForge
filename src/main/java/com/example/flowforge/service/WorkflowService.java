@@ -1,6 +1,7 @@
 package com.example.flowforge.service;
 
 import com.example.flowforge.dto.request.CreateWorkflowRequest;
+import com.example.flowforge.dto.response.WorkflowGraphResponse;
 import com.example.flowforge.dto.response.WorkflowResponse;
 
 public interface WorkflowService {
@@ -14,4 +15,6 @@ public interface WorkflowService {
     WorkflowResponse enableWorkflow(Long id);
 
     WorkflowResponse disableWorkflow(Long id);
+    WorkflowGraphResponse getWorkflowGraph(
+            Long workflowId);
 }

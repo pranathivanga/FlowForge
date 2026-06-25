@@ -8,18 +8,32 @@ import com.example.flowforge.repository.UserRepository;
 import com.example.flowforge.repository.WorkflowRepository;
 import com.example.flowforge.service.WorkflowService;
 import org.springframework.stereotype.Service;
+import com.example.flowforge.dto.response.GraphEdgeResponse;
+import com.example.flowforge.dto.response.GraphNodeResponse;
+import com.example.flowforge.dto.response.WorkflowGraphResponse;
+import com.example.flowforge.entity.WorkflowEdge;
+import com.example.flowforge.entity.WorkflowNode;
+import com.example.flowforge.repository.WorkflowEdgeRepository;
+import com.example.flowforge.repository.WorkflowNodeRepository;
 
+import java.util.stream.Collectors;
 @Service
 public class WorkflowServiceImpl implements WorkflowService {
     private final UserRepository userRepository;
     private final WorkflowRepository workflowRepository;
+    private final WorkflowNodeRepository workflowNodeRepository;
+    private final WorkflowEdgeRepository workflowEdgeRepository;
 
     public WorkflowServiceImpl(
             WorkflowRepository workflowRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            WorkflowNodeRepository workflowNodeRepository,
+            WorkflowEdgeRepository workflowEdgeRepository) {
 
         this.workflowRepository = workflowRepository;
         this.userRepository = userRepository;
+        this.workflowNodeRepository = workflowNodeRepository;
+        this.workflowEdgeRepository = workflowEdgeRepository;
     }
 
     @Override
@@ -112,5 +126,9 @@ public class WorkflowServiceImpl implements WorkflowService {
                 updatedWorkflow.isEnabled(),
                 updatedWorkflow.getVersion()
         );
+    }
+    @Override
+    public WorkflowGraphResponse getWorkflowGraph(Long workflowId) {
+        return null;
     }
 }

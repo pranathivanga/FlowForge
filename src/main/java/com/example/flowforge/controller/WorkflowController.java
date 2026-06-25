@@ -2,6 +2,7 @@ package com.example.flowforge.controller;
 
 import com.example.flowforge.dto.request.CreateWorkflowRequest;
 import com.example.flowforge.dto.response.ApiResponse;
+import com.example.flowforge.dto.response.WorkflowGraphResponse;
 import com.example.flowforge.dto.response.WorkflowResponse;
 import com.example.flowforge.service.WorkflowService;
 import jakarta.validation.Valid;
@@ -80,6 +81,16 @@ public class WorkflowController {
                 true,
                 "Workflow disabled successfully!",
                 workflow
+        );
+    }
+    @GetMapping("/{id}/graph")
+    public ApiResponse<WorkflowGraphResponse> getWorkflowGraph(
+            @PathVariable Long id) {
+
+        return new ApiResponse<>(
+                true,
+                "Workflow graph loaded successfully!",
+                workflowService.getWorkflowGraph(id)
         );
     }
 }
